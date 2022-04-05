@@ -30,8 +30,8 @@ actor Token {
         // Debug.print(debug_show(msg.caller));
         if (balances.get(msg.caller) == null) {
             let amount = 10000;
-            balances.put(msg.caller, amount);
-            return "Success";
+            let result = await transfer(msg.caller, amount);
+            return result;
         } else {
             return "Already claimed";
         }
@@ -46,7 +46,7 @@ actor Token {
             let toBalance = await balanceOf(to);
             let newToBalance = toBalance + amount;
             balances.put(to, newToBalance);
-            
+
             return "Success";
         } else {
             return "Insufficient Funds";
